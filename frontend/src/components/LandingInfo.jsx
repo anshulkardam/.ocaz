@@ -10,12 +10,15 @@ export const LandingInfo = () => {
                 <div className="text-7xl text-white text-center font-montserrat font-bold">Elevate Your Event</div>
                 <div className="text-xl text-center font-montserrat font-semibold text-slate-300">Streamline Your Events, Maximize Your Impact
                 </div>
-                <Link to={'/listpage'} >
                 <div className="flex justify-center pt-9 gap-8"> 
+                <Link to={'/login'} >
                     <Acebutton label={"Host an Event"} />
+                    </Link>
+                    <Link to={'/listpage'} >
                     <Acebutton label={"Attend an Event"} />
+                    </Link>
                 </div>
-                </Link>
+            
                 <div className="w-full pt-10">
 
                     <form className="w-3/4 mx-auto ">

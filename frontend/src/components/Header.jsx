@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom"
+
 export const Header = () => {
 
     return <div className="bg-zinc-950 p-[15px] w-full sticky z-50 top-0 flex justify-between">
@@ -9,21 +11,22 @@ export const Header = () => {
                     Upcoming Events
                 </div>
                 <div className=" hover:font-bold hover:text-blue-400 cursor-pointer ">
-                    Host an Event
-                </div>
-                <div className=" hover:font-bold hover:text-blue-400 cursor-pointer ">
                     About
                 </div>
 
             </div>
         </div>
         <div className="text-white font-montserrat font-semibold flex justify-end gap-10 pr-10 items-center">
+            <Link to={'/login'} >
             <div className="text- hover:font-bold hover:text-blue-300 cursor-pointer ">
                 Sign In
             </div>
+            </Link>
+            <Link to={'/signup'} >
             <div className="text- hover:font-bold hover:text-blue-300 cursor-pointer ">
                 Sign Up
             </div>
+            </Link>
         </div>
 
     </div>
