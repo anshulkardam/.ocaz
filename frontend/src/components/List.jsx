@@ -7,7 +7,7 @@ import { Map } from "./ui/map";
 import "leaflet/dist/leaflet.css"
 export const List = () => {
     const data = listData;
-    return <div className="bg-blue-200 min-h-screen text-white">
+    return <div className="bg-neutral-900 min-h-screen text-white">
         <div className="grid grid-cols-12">
             <div className="col-span-8">
                 <FilterQ />
