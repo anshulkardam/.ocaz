@@ -1,3 +1,9 @@
+import { Header } from "../components/Header"
+import { UserDashboard } from "../components/UserDashboard"
+
 export const ProfilePage = () =>  {
-    return <div>Profile!</div>
+    return <div>
+        <Header/>
+        <UserDashboard />
+    </div>
 }
