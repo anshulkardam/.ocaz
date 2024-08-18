@@ -14,10 +14,10 @@ export const LandingInfo = () => {
                 </div>
                 <div className="flex justify-center pt-9 gap-8">
                     <Link to={'/login'} >
-                        <Acebutton label={"Host an Event"} />
+                        <Acebutton label={"Host an Event"} size={6} />
                     </Link>
                     <Link to={'/listpage'} >
-                        <Acebutton label={"Attend an Event"} />
+                        <Acebutton label={"Attend an Event"} size={6} />
                     </Link>
                 </div>
 
@@ -51,15 +51,16 @@ export const LandingInfo = () => {
                     </div>
                 </div>
                 <div className="text-white pt-24 text-3xl flex justify-center text-center ">
-                <p className="w-3/4 font-montserrat font-semibold">
-                    "More than just attending—dive in, connect, and make every event uniquely yours with tailored experiences."
+                    <p className="w-3/4 font-montserrat font-semibold">
+                        "More than just attending—dive in, connect, and make every event uniquely yours with tailored experiences."
                     </p>
                 </div>
-                <div className="pt-28">
-                    <InfiniteMovingCards items={testimonials} className={"text-slate-200 text-2xl"} />
+                <div className="pt-20">
+                    <InfiniteMovingCards items={testimonials} className={"text-slate-200"} />
+                    <InfiniteMovingCards items={testimonials} className={"text-slate-200"} direction="right" />
                 </div>
             </div>
-            <div className="col-span-3">
+            <div className="col-span-3 cursor-pointer">
                 <div>
                     <div className="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
                         <div className="grid grid-cols-2 gap-2">
