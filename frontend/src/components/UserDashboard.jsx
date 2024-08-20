@@ -2,30 +2,34 @@ import { useState } from "react"
 import { Chat } from "./chat"
 import { SavedList } from "./SavedList"
 import { Acebutton } from "./ui/acebutton"
+import { Link } from "react-router-dom"
 
 export const UserDashboard = () => {
     const [window, Setwindow] = useState(false)
-
+    function windowclick() {
+        Setwindow(true);
+    }
     return <div className="bg-black min-h-screen">
         <div className="grid grid-cols-10">
             <div className="col-span-5  text-white">
-                <div className=" flex justify-between p-4 text-xl font-montserrat font-semibold">
-                    <div className="ml-10">User Information</div>
-                    <div className="text-sm flex flex-col items-center text-yellow-300 underline cursor-pointer">Update Profile</div>
+                <div className="ml-10 text-center p-4 text-xl font-montserrat font-semibold">
+                    Your <span className="text-red-500 font-playwrite-nz">account</span>
                 </div>
-                <div className="gap-10 pl-20 mb-5 flex bg-grid py-5 items-center ">
+                <div className="gap-10 pl-20 mb-5 flex bg-grid py-5 items-center rounded-e-full ">
                     <img src="../../public/im18.jpg" className="w-24 h-24  rounded-full " />
-                    <div className=" text-lg  font-montserrat font-semibold">
+                    <div className=" text-lg  font-montserrat italic font-semibold">
                         <div className="mt-1 ">Username:
-                            <span className="ml-2 text-teal-400 ">John Doe</span>
+                            <span className="ml-2 text-red-500 ">John Doe</span>
                         </div>
                         <div >E-mail:
-                            <span className="ml-2 text-teal-400 ">JohnDoe@example.com</span>
+                            <span className="ml-2 text-red-500 ">JohnDoe@example.com</span>
                         </div>
                     </div>
                 </div>
                 <div className="flex justify-center">
-                    <Acebutton label={"See Your Bookmarks!"} size={10} />
+                    <Link to={'/bookmarks'}>
+                    <Acebutton label={"See Your Bookmarks!"} size={8} />
+                    </Link>
                 </div>
                 <div onClick={() => { Setwindow(true) }}> Chat..</div>
                 {window && (<div className="bg-white  mt-4 fixed bottom-0 left-[10%] mx-auto max-w-lg">
@@ -63,8 +67,8 @@ export const UserDashboard = () => {
             </div>
             <div className="col-span-5 p-4 text-white h-[100vh] overflow-y-scroll">
                 <div className="h-[300px]">
-                    <div className="text-lg font-montserrat font-semibold text-center">Your <span className="text-orange-600">Messages</span></div>
-                    <Chat />
+                    <div className="text-lg font-montserrat font-semibold text-center">Your <span className="text-orange-600 font-playwrite-nz">messages</span></div>
+                    <Chat onClick={windowclick} />
                 </div>
             </div>
 

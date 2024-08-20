@@ -5,6 +5,7 @@ import { EventInfo } from "./pages/EventInfo"
 import { ProfilePage } from "./pages/ProfilePage"
 import { Login } from "./pages/Login"
 import { SignUp } from "./pages/SignUp"
+import { Mybookmarks } from "./pages/Mybookmarks"
 function App() {
   return <>
           <BrowserRouter>
@@ -15,6 +16,7 @@ function App() {
             <Route path="/profile" element= {<ProfilePage />} ></Route>
             <Route path="/login" element= {<Login />} ></Route>
             <Route path="/signup" element= {<SignUp />} ></Route>
+            <Route path="/bookmarks" element= {<Mybookmarks />} ></Route>
           </Routes>
           </BrowserRouter>
   

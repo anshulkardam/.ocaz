@@ -6,11 +6,13 @@ const router = express.Router()
 
 
 router.post("/register", async (req,res) => {
-    const {username,email, password} = req.body
+    const {firstName,lastName,username,email, password} = req.body
     try {
     const hashedpass = await bcrypt.hash(password,10)
     const newUser = await prisma.user.create({
         data : {
+            firstName,
+            lastName,
             username,
             email,
             password : hashedpass
@@ -19,7 +21,7 @@ router.post("/register", async (req,res) => {
     res.status(200).json({message: "user created successfully"})
         } catch(e)
         {
-            res.status(500).json({message: "something went wrong during register!"})
+            res.status(500).json({message: "Failed to create account!"})
         }
 })
 router.post("/login", async (req,res) => {
@@ -33,12 +35,12 @@ router.post("/login", async (req,res) => {
    
     if(!Usercheck){
     
-        return res.status(411).json({message: "Invalid Credentials 1"})
+        return res.status(411).json({message: "Invalid Credentials"})
     }
     const checkPass = await bcrypt.compare(password, Usercheck.password)
    
     if(!checkPass){
-        return res.status(411).json({message: "Invalid Credentials 2"})
+        return res.status(411).json({message: "Invalid Credentials"})
     }
     const cookieage = 1000 * 60 * 60 * 24 * 7
     const token = jwt.sign({
@@ -52,7 +54,7 @@ router.post("/login", async (req,res) => {
         maxAge: cookieage
     }).status(200).json ({message: "Login Successfully"})
     } catch(e){
-        res.json({message: "Invalid Credentials 4"})
+        res.json({message: "Invalid Credentials"})
     }
 
 })

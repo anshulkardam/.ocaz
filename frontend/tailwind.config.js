@@ -43,8 +43,11 @@ module.exports = {
         silver: '#C0C0C0',
       },
       fontFamily: {
-        montserrat: ['Montserrat', 'sans-serif'],
+          montserrat: ['Montserrat', 'sans-serif'],
           poppins: ['Poppins', 'sans-serif'],
+          'bebas-neue': ['Bebas Neue', 'sans-serif'],
+        'playwrite-nz': ['Playwrite NZ', 'sans-serif'],
+        'source-code-pro': ['Source Code Pro', 'monospace'],
       },
     },
   },
