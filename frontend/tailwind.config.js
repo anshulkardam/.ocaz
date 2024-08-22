@@ -5,6 +5,7 @@ import flattenColorPalette from "tailwindcss/lib/util/flattenColorPalette";
 const flowbite = require("flowbite-react/tailwind");
 module.exports = {
   content: [
+    "./node_modules/flowbite/**/*.js",
     flowbite.content(),
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -51,7 +52,7 @@ module.exports = {
       },
     },
   },
-  plugins: [addVariablesForColors, flowbite.plugin(),], 
+  plugins: [addVariablesForColors, flowbite.plugin(),  require('flowbite/plugin')], 
   
 };
 

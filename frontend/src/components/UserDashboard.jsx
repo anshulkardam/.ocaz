@@ -67,9 +67,12 @@ export const UserDashboard = () => {
                    
                     </div>
                 </div>
-                <div className="flex justify-center mt-4">
+                <div className="flex justify-evenly mt-4">
                     <Link to={'/bookmarks'}>
-                        <Acebutton label={"See Your Bookmarks!"} size={8} />
+                        <Acebutton label={"Your Saved Events!"} size={8} />
+                    </Link>
+                    <Link to={'/NewEvent'}>
+                        <Acebutton label={"Create New Event"} size={8} />
                     </Link>
                 </div>
                 <div onClick={() => { Setwindow(true) }}> Chat..</div>

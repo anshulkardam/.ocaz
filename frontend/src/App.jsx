@@ -7,6 +7,7 @@ import { Login } from "./pages/Login"
 import { SignUp } from "./pages/SignUp"
 import { Mybookmarks } from "./pages/Mybookmarks"
 import { UpdateProfile } from "./pages/UpdateProfile"
+import { NewEvent } from "./pages/NewEvent"
 function App() {
   return <>
           <BrowserRouter>
@@ -19,6 +20,7 @@ function App() {
             <Route path="/signup" element= {<SignUp />} ></Route>
             <Route path="/bookmarks" element= {<Mybookmarks />} ></Route>
             <Route path="/updateprofile" element= { <UpdateProfile />} ></Route>
+            <Route path="/NewEvent" element= { <NewEvent/>} ></Route>
           </Routes>
           </BrowserRouter>
   
