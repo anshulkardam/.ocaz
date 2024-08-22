@@ -1,10 +1,12 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useContext, useState } from "react"
 import axios from "axios"
 import { Acebutton } from "./ui/acebutton"
+import { Authcontext } from "../context/authContext"
 
 
 export const Loginpage = () => {
+    const {currentUser,updateUser} = useContext(Authcontext)
     const navigate = useNavigate()
     const [error,setError] = useState("")
     const [formData, setFormData] = useState({
@@ -20,7 +22,9 @@ export const Loginpage = () => {
     }
     async function handleSubmit() {
         try{
-        const response = await axios.post("http://localhost:3000/api/v1/auth/login", formData)
+        const response = await axios.post("http://localhost:3000/api/v1/auth/login", formData, {withCredentials: true})
+       
+        updateUser(response.data)
         navigate('/listpage')
         } catch(e){
             setError(e.response.data.message)

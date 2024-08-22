@@ -2,7 +2,7 @@ import { Marker, Popup } from "react-leaflet"
 import { Link } from "react-router-dom"
 
 export const Pins = ({ item }) => {
-    console.log("AAAA", item)
+   
     return (
         <Marker position={[item.latitude, item.longitude]}>
             <Link to={`/eventinfo/${item.id}`} >

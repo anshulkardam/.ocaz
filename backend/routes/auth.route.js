@@ -2,10 +2,11 @@ import express from "express"
 import bcrypt from "bcrypt"
 import prisma from "../db/prisma.js"
 import jwt from "jsonwebtoken"
+import authMiddleware from "../middlewares/authmiddleware.js"
 const router = express.Router()
 
 
-router.post("/register", async (req,res) => {
+router.post("/register", authMiddleware, async (req,res) => {
     const {firstName,lastName,username,email, password} = req.body
     try {
     const hashedpass = await bcrypt.hash(password,10)
@@ -42,6 +43,9 @@ router.post("/login", async (req,res) => {
     if(!checkPass){
         return res.status(411).json({message: "Invalid Credentials"})
     }
+    
+    const {password: passnotsent, ...Userinfo} = Usercheck
+
     const cookieage = 1000 * 60 * 60 * 24 * 7
     const token = jwt.sign({
         id:Usercheck.id
@@ -52,7 +56,7 @@ router.post("/login", async (req,res) => {
         httpOnly: true,
         // secure: true
         maxAge: cookieage
-    }).status(200).json ({message: "Login Successfully"})
+    }).status(200).json(Userinfo)
     } catch(e){
         res.json({message: "Invalid Credentials"})
     }

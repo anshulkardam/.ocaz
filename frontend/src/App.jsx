@@ -6,6 +6,7 @@ import { ProfilePage } from "./pages/ProfilePage"
 import { Login } from "./pages/Login"
 import { SignUp } from "./pages/SignUp"
 import { Mybookmarks } from "./pages/Mybookmarks"
+import { UpdateProfile } from "./pages/UpdateProfile"
 function App() {
   return <>
           <BrowserRouter>
@@ -17,6 +18,7 @@ function App() {
             <Route path="/login" element= {<Login />} ></Route>
             <Route path="/signup" element= {<SignUp />} ></Route>
             <Route path="/bookmarks" element= {<Mybookmarks />} ></Route>
+            <Route path="/updateprofile" element= { <UpdateProfile />} ></Route>
           </Routes>
           </BrowserRouter>
   

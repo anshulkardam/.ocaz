@@ -1,34 +1,75 @@
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import { Chat } from "./chat"
 import { SavedList } from "./SavedList"
 import { Acebutton } from "./ui/acebutton"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
+import axios from "axios"
+import { Authcontext } from "../context/authContext"
 
 export const UserDashboard = () => {
+    const {currentUser,updateUser} = useContext(Authcontext)
+
+    const navigate = useNavigate()
     const [window, Setwindow] = useState(false)
     function windowclick() {
         Setwindow(true);
     }
-    return <div className="bg-black min-h-screen">
+    useEffect(()=>{
+        if(!currentUser){
+            navigate('/login')
+        }
+    },[currentUser,navigate])
+    async function handlelogout(){
+        try {
+        const res = await axios.post("http://localhost:3000/api/v1/auth/logout", {}, { withCredentials: true })
+         updateUser(null)
+        navigate('/')
+        } catch(e){
+            console.log(e)
+        }
+    }
+    return (currentUser && (<div className="bg-black min-h-screen">
         <div className="grid grid-cols-10">
-            <div className="col-span-5  text-white">
-                <div className="ml-10 text-center p-4 text-xl font-montserrat font-semibold">
+            <div className="col-span-5 pl-10   text-white">
+                <div className="ml-10 mb-1 text-center p-4 text-xl font-montserrat font-semibold">
                     Your <span className="text-red-500 font-playwrite-nz">account</span>
                 </div>
-                <div className="gap-10 pl-20 mb-5 flex bg-grid py-5 items-center rounded-e-full ">
-                    <img src="../../public/im18.jpg" className="w-24 h-24  rounded-full " />
-                    <div className=" text-lg  font-montserrat italic font-semibold">
-                        <div className="mt-1 ">Username:
-                            <span className="ml-2 text-red-500 ">John Doe</span>
+                <div className=" p-4 rounded-xl bg-grid ">
+                    <div className="flex justify-center">
+                        <div>
+                            <div className=" ">
+                                <div className="flex  gap-3   ">
+                                    <img src={currentUser.avatar || "/default-avatar.jpg"} className="w-16 h-16 border-red-500 border-2 rounded-full " />
+                                    <div className=" text-xl  font-montserrat   font-semibold">
+                                        <div className=" ">{currentUser.firstName}
+                                        <span className=" ml-2">{currentUser.lastName}
+                                        </span>
+                                        </div>
+                                        
+                                        <div className=" text-red-500 text-sm">@{currentUser.username}</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="">
+                                <div className=" text-base  font-montserrat  text-center  font-semibold">E-mail</div>
+                                <div className=" text-red-500 text-base text-center  font-montserrat    ">{currentUser.email}</div>
+
+                            </div>
+
                         </div>
-                        <div >E-mail:
-                            <span className="ml-2 text-red-500 ">JohnDoe@example.com</span>
-                        </div>
+
+                    </div>
+                    <div className="items-center flex justify-center gap-5 mt-2">
+                        <Link to={'/updateprofile'} >
+                    <button type="button" className="text-white hover:text-white border border-red-600 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center me-2">Edit Profile</button>
+                    </Link>
+                    <button type="button" onClick={handlelogout} className="text-red-700 hover:text-white border border-red-600 hover:bg-red-500 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-1.5 text-center me-2">Logout</button>
+                   
                     </div>
                 </div>
-                <div className="flex justify-center">
+                <div className="flex justify-center mt-4">
                     <Link to={'/bookmarks'}>
-                    <Acebutton label={"See Your Bookmarks!"} size={8} />
+                        <Acebutton label={"See Your Bookmarks!"} size={8} />
                     </Link>
                 </div>
                 <div onClick={() => { Setwindow(true) }}> Chat..</div>
@@ -73,6 +114,6 @@ export const UserDashboard = () => {
             </div>
 
         </div>
-    </div>
+    </div> ))
 }
 
