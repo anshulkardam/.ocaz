@@ -1,4 +1,4 @@
-import { BrowserRouter,Route,Routes } from "react-router-dom"
+import {createBrowserRouter,RouterProvider} from "react-router-dom"
 import { LandingPage } from "./pages/LandingPage"
 import { ListPage } from "./pages/ListPage"
 import { EventInfo } from "./pages/EventInfo"
@@ -8,24 +8,54 @@ import { SignUp } from "./pages/SignUp"
 import { Mybookmarks } from "./pages/Mybookmarks"
 import { UpdateProfile } from "./pages/UpdateProfile"
 import { NewEvent } from "./pages/NewEvent"
+import {  alleventsloader, eventinfoloader } from "./lib/loaders"
+
 function App() {
-  return <>
-          <BrowserRouter>
-          <Routes>
-            <Route path="/" element= {<LandingPage />} ></Route>
-            <Route path="/listpage" element= {<ListPage />} ></Route>
-            <Route path="/eventinfo/:id" element= {<EventInfo />} ></Route>
-            <Route path="/profile" element= {<ProfilePage />} ></Route>
-            <Route path="/login" element= {<Login />} ></Route>
-            <Route path="/signup" element= {<SignUp />} ></Route>
-            <Route path="/bookmarks" element= {<Mybookmarks />} ></Route>
-            <Route path="/updateprofile" element= { <UpdateProfile />} ></Route>
-            <Route path="/NewEvent" element= { <NewEvent/>} ></Route>
-          </Routes>
-          </BrowserRouter>
-  
-  
-  </>
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: (<LandingPage />),
+    },
+    {
+      path: "/listpage",
+      element: (<ListPage />) ,
+      loader: alleventsloader,
+    },
+    {
+      path: "/eventinfo/:id",
+      element: (<EventInfo />) ,
+      loader: eventinfoloader,
+    },
+    {
+      path: "/profile",
+      element: (<ProfilePage />) ,
+    },
+    {
+      path: "/login",
+      element: (<Login />) ,
+    },
+    {
+      path: "/signup",
+      element: (<SignUp />) ,
+    },
+    {
+      path: "/bookmarks",
+      element: (<Mybookmarks />) ,
+    },
+    {
+      path: "/updateprofile",
+      element: (<UpdateProfile />) ,
+    },
+    {
+      path: "/NewEvent",
+      element: ( <NewEvent/>) ,
+    },
+  ]);
+  return (
+    <RouterProvider router={router} />
+  )
+
 }
 
 export default App

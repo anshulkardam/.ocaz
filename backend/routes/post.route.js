@@ -5,8 +5,19 @@ import prisma from "../db/prisma.js"
 const router = express.Router()
 
 router.get("/eventslist", async (req, res) => {
+    const query = req.query
+    console.log(query)
     try {
-        const posts = await prisma.post.findMany({})
+        const posts = await prisma.post.findMany({
+            where:{
+                city: query.city || undefined,
+                price: {
+                    gte : parseInt(query.minprice) || 0,
+                    lte : parseInt(query.maxprice) || 100000000,
+                }
+              
+            }
+        })
         return res.json(posts)
     } catch (e) {
         return res.json({ message: "error found" })

@@ -11,7 +11,7 @@ export const Header = () => {
         }
     },[currentUser])
    
-    console.log("user details",currentUser)
+    //console.log("user details",currentUser)
     
     return <div className="bg-zinc-950 p-[15px] w-full sticky z-50 top-0 flex justify-between">
         <div className='flex gap-2'>
@@ -21,12 +21,12 @@ export const Header = () => {
             </Link>
             <div className='text-silver flex font-montserrat font-semibold gap-10 pl-10 items-center text-sm'>
                 <Link to={'/listpage'} >
-                <div className=" hover:font-bold  hover:text-coral cursor-pointer ">
-                    Upcoming Events
+                <div className=" hover:font-bold hover:text-coral cursor-pointer ">
+                     Events
                 </div>
                 </Link>
                 <div className=" hover:font-bold hover:text-coral cursor-pointer ">
-                    About
+                    Contact Us
                 </div>
             </div>
         </div>

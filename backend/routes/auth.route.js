@@ -5,8 +5,7 @@ import jwt from "jsonwebtoken"
 import authMiddleware from "../middlewares/authmiddleware.js"
 const router = express.Router()
 
-
-router.post("/register", authMiddleware, async (req,res) => {
+router.post("/register", async (req,res) => {
     const {firstName,lastName,username,email, password} = req.body
     try {
     const hashedpass = await bcrypt.hash(password,10)

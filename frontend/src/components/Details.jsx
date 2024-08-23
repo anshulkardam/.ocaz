@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 import { Slider } from "./Slider"
 import { singlePostData, userData } from "../db/dummydata"
 import { Map } from "./ui/map";
@@ -6,18 +6,20 @@ import "leaflet/dist/leaflet.css"
 export const Details = () => {
     const eventdetails = singlePostData;
     const userdata = userData;
+    const details = useLoaderData();
+    console.log("neW",details)
     return <div className="bg-neutral-800 pl-16">
         <div className="grid grid-cols-12 text-black">
             <div className="col-span-8 pt-4">
                 <div className="flex grid-cols-5 justify-between">
                     <div className="col-span-4 ">
-                        <Slider items={eventdetails.images} />
+                        <Slider items={details.images} />
                     </div>
                     <div className="col-span-1 mt-4 mr-20 ">
                         <div className="h-full">
                             <Link to={'/profile'} className="block" >
                                 <div className="p-4 border border-white text-center ">
-                                    <img src={userdata.img} className="aspect-square w-12 h-12 object-cover rounded-full mx-auto" /> <span className="text-white">{userdata.name}</span>
+                                    <img src={details.user.avatar || '/default-avatar.jpg'} className="aspect-square w-12 h-12 object-cover rounded-full mx-auto" /> <span className="text-white">{details.user.username}</span>
                                 </div>
                             </Link>
                             <div className="flex justify-center">
@@ -35,20 +37,20 @@ export const Details = () => {
                 <div className="flex justify-between pt-5 text-white">
                     <div>
                         <div className="flex text-2xl font-montserrat font-semibold">
-                            <div className="">{eventdetails.title}</div>
-                            <div className="text-gold pl-5 ">₹{eventdetails.price}</div>
+                            <div className="">{details.title}</div>
+                            <div className="text-gold pl-5 ">₹{details.price}</div>
                         </div>
                         <div className="text-md items-center text-silver flex mb-2">
                             <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path fillRule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clipRule="evenodd" />
                             </svg>
-                            {eventdetails.address}
+                            {details.address}
                         </div>
                     </div>
 
                 </div>
 
-                <div className="text-slate-100">{eventdetails.description}</div>
+                <div className="text-slate-100">{details.PostDetails.desc}</div>
             </div>
             <div className="col-span-4 border-l-2 p-5 text-white min-h-screen">
                 <div className="text-sm">
@@ -59,7 +61,7 @@ export const Details = () => {
                         <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        <span> Time</span>
+                        <span> Time </span> <span> {details.PostDetails.time} </span>
                     </div>
                     <div className="flex">
                         <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
@@ -72,7 +74,7 @@ export const Details = () => {
   <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clipRule="evenodd"/>
 </svg>
 
-                        <span> Alcohol </span>
+                        <span> Alcohol </span>   <span> {details.PostDetails.alcohol? "Allowed" : "Not Allowed"} </span>
                     </div>
                 </div>
                 <div className="text-sm">
@@ -80,8 +82,8 @@ export const Details = () => {
                         Event Details
                     </div>
                     <div className="flex gap-8">
-                        <div>{eventdetails.bedRooms} Tickets </div>
-                        <div>{eventdetails.bathroom} VIP</div>
+                        <div>{details.PostDetails.tickets} Tickets </div>
+                        <div>{details.PostDetails.vip} VIP</div>
                     </div>
                 </div>
                 <div className="text-sm items-center flex gap-2">

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useContext, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import { Acebutton } from "./ui/acebutton"
 import { Authcontext } from "../context/authContext"
@@ -13,6 +13,12 @@ export const Loginpage = () => {
         username: '',
         password: ''
     })
+    useEffect(()=>{
+        if(currentUser){
+            navigate('/profile')
+        }
+    },[currentUser])
+
     function handleChange(e) {
         const { name, value } = e.target
         setFormData({
@@ -30,7 +36,7 @@ export const Loginpage = () => {
             setError(e.response.data.message)
         }
     }
-    return <div className="bg-black min-h-screen">
+    return (!currentUser && (<div className="bg-black min-h-screen">
         <div className="grid grid-cols-12 ">
             <div className="col-span-5 cursor-pointer">
                 <div>
@@ -95,7 +101,7 @@ export const Loginpage = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </div>))
 
 }
 
