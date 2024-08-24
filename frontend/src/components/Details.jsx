@@ -1,14 +1,23 @@
-import { Link, useLoaderData } from "react-router-dom"
+import { Link, useLoaderData, useNavigate } from "react-router-dom"
 import { Slider } from "./Slider"
 import { singlePostData, userData } from "../db/dummydata"
 import { Map } from "./ui/map";
 import "leaflet/dist/leaflet.css"
+import { useContext, useEffect } from "react";
+import { Authcontext } from "../context/authContext";
 export const Details = () => {
     const eventdetails = singlePostData;
+    const navigate = useNavigate()
+    const {currentUser} = useContext(Authcontext)
+    useEffect(()=>{
+        if(!currentUser){
+            navigate('/login')
+        }
+    },[currentUser,navigate])
     const userdata = userData;
     const details = useLoaderData();
     console.log("neW",details)
-    return <div className="bg-neutral-800 pl-16">
+    return (currentUser && (<div className="bg-neutral-800 pl-16">
         <div className="grid grid-cols-12 text-black">
             <div className="col-span-8 pt-4">
                 <div className="flex grid-cols-5 justify-between">
@@ -104,5 +113,5 @@ export const Details = () => {
                 </div>
             </div>
         </div>
-    </div>
+    </div>))
 }

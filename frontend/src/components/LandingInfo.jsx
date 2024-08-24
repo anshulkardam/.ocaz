@@ -1,10 +1,25 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { Acebutton } from "./ui/acebutton"
 import { InfiniteMovingCards } from "./ui/MovingCards";
-import { FooterComponent } from "./ui/Footer";
+import { useState } from "react";
 
 
 export const LandingInfo = () => {
+    const navigate = useNavigate()
+    const [query, setQuery] = useState({
+        title: "",
+        city: "",
+        minPrice: 0,
+        maxPrice: 0,
+    })
+   
+    const handlechange = (e) => {
+        setQuery((prev) => ({ ...prev, [e.target.name]: e.target.value }))
+    }
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        navigate(`/listpage?title=${query.title}&city=${query.city}&minPrice=${query.minPrice}&maxPrice=${query.maxPrice}`)
+    }
 
     return <div className="bg-black min-h-screen flex justify-center">
         <div className="grid grid-cols-10">
@@ -23,14 +38,14 @@ export const LandingInfo = () => {
 
                 <div className="w-full pt-10">
 
-                    <form className="w-3/4 mx-auto ">
+                    <form className="w-3/4 mx-auto " onSubmit={handleSubmit}>
                         <div className="relative">
                             <div className="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                                 <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z" />
                                 </svg>
                             </div>
-                            <input type="search" id="default-search" className="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-full bg-slate-900" placeholder="Search Events, Gatherings..." required />
+                            <input type="search" name="title" onChange={handlechange} className="block w-full p-4 ps-10 text-white font-medium text-sm border border-gray-300 rounded-full bg-slate-900" placeholder="Search Events, Gatherings..." required />
                             <button type="submit" className=" absolute end-2.5 bottom-2.5 bg-black hover:bg-slate-950  focus:ring-4 focus:outline-none focus:ring-slate-300 font-medium text-slate-300 rounded-lg text-sm px-4 py-2">Search</button>
                         </div>
                     </form>

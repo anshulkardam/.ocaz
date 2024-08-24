@@ -9,13 +9,14 @@ router.get("/eventslist", async (req, res) => {
     console.log(query)
     try {
         const posts = await prisma.post.findMany({
-            where:{
+            where: {
                 city: query.city || undefined,
+                title: query.title || undefined,
                 price: {
-                    gte : parseInt(query.minprice) || 0,
-                    lte : parseInt(query.maxprice) || 100000000,
+                    gte: parseInt(query.minprice) || 0,
+                    lte: parseInt(query.maxprice) || 100000000,
                 }
-              
+
             }
         })
         return res.json(posts)
@@ -47,11 +48,11 @@ router.get("/event/:id", async (req, res) => {
         where: { id },
         include: {
             PostDetails: true,
-            user:{
-                    select:{
-                        username:  true,
-                        avatar: true,
-                    }
+            user: {
+                select: {
+                    username: true,
+                    avatar: true,
+                }
             },
         }
     })
@@ -61,22 +62,52 @@ router.get("/event/:id", async (req, res) => {
 router.delete("/deleteEvent/:id", authMiddleware, async (req, res) => {
     const id = req.params.id
     const usertoken = req.user.id
-    console.log("id",id)
-    console.log("usertoken",usertoken)
+    console.log("id", id)
+    console.log("usertoken", usertoken)
     const usercheck = await prisma.post.findUnique({
-        where:{id}
+        where: { id }
     })
-    console.log("usertoken userid",usercheck.userId)
-    if (usertoken !== usercheck.userId){
+    console.log("usertoken userid", usercheck.userId)
+    if (usertoken !== usercheck.userId) {
 
     }
     const delevent = await prisma.post.delete({
-        where: {id}
+        where: { id }
     })
     return res.json(delevent)
 })
 
 router.put("/updateEvent/:id", authMiddleware, async (req, res) => {
     res.send(" post route works!")
+})
+
+router.post("/bookmarks", authMiddleware, async (req, res) => {
+    const postId = req.body.postId;
+    const usertoken = req.user.id
+    const bookmarks = await prisma.bookmarks.findUnique({
+        where: {
+            userId_postId: {
+                userId: usertoken,
+                postId
+            }
+        }
+    })
+    if (bookmarks) {
+        await prisma.bookmarks.delete({
+            where: {
+                id: bookmarks.id
+            }
+        })
+        return res.json({ message: "Bookmark removed" })
+    }
+    else {
+        await prisma.bookmarks.create({
+            data:{
+                userId: usertoken,
+                postId
+            }
+        })
+        return res.json({ message: "Bookmark saved" })
+    }
 })
 export default router;

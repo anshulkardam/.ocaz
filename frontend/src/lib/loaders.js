@@ -1,4 +1,5 @@
 import axios from "axios"
+import { defer } from "react-router-dom"
 
 export const eventinfoloader = async({request,params}) => {
     console.log(params.id)
@@ -7,6 +8,8 @@ export const eventinfoloader = async({request,params}) => {
 }
  export const alleventsloader = async({request,params}) => {
     const query = request.url.split("?")[1]
-    const response = await axios.get(`http://localhost:3000/api/v1/post/eventslist?${query}`)
-    return response.data
+    const response =  axios.get(`http://localhost:3000/api/v1/post/eventslist?${query}`)
+    return defer({
+        postResponse: response
+    })
  }

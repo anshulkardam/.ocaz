@@ -5,7 +5,7 @@ export const Cards = ({ item }) => {
     return <div>
         <Link to={`/eventinfo/${item.id}`} >
             <div className="relative h-full flex pb-3 " >
-                <img src={item.img} className="object-cover aspect-video h-[110px] w-[150px] rounded-md " />
+                <img src={item.images[0]} className="object-cover aspect-video h-[110px] w-[150px] rounded-md " />
                 <div className="w-full ml-2 font-montserrat ">
                     <div className="text-md font-semibold mb-2">
                         {item.title}
