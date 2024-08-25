@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 import { Authcontext } from "../context/authContext";
+import { useNotifStore } from "../lib/noti";
 
 export const Header = () => {
     const [user,setUser] = useState(false);
@@ -11,8 +12,11 @@ export const Header = () => {
         }
     },[currentUser])
    
-    //console.log("user details",currentUser)
-    
+    const fetch = useNotifStore((state)=> state.fetch)
+    const number = useNotifStore((state)=> state.number)
+    if(currentUser){
+    fetch();
+    }
     return <div className="bg-zinc-950 p-[15px] w-full sticky z-50 top-0 flex justify-between">
         <div className='flex gap-2'>
             <img src="../../123.png" alt="logo.png" width="40px" height="20px" />
@@ -39,7 +43,7 @@ export const Header = () => {
                 <div className="flex justify-center relative">
                 <Link to={'/profile'} >
                     <img src={currentUser.avatar || "/default-avatar.jpg"} className="w-8 h-8 rounded-full" />
-                    <span className="bg-red-700 absolute top-[-5px] right-[-5px]  text-xs rounded-full h-4 w-4 flex items-center justify-center">3</span>
+                   {number>0 && <span className="bg-red-700 absolute top-[-5px] right-[-5px]  text-xs rounded-full h-4 w-4 flex items-center justify-center">{number}</span>}
                     </Link>
                 </div> </>
                 : <><Link to={'/login'} >

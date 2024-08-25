@@ -1,11 +1,19 @@
 import { Link, useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import axios from 'axios'
 import { Acebutton } from "./ui/acebutton"
+import { Authcontext } from "../context/authContext"
 
 export const Register = () => {
     const navigate = useNavigate()
-    const [error,setError] = useState("")
+    const [error, setError] = useState("")
+    const { currentUser } = useContext(Authcontext)
+
+    useEffect(() => {
+        if (currentUser) {
+            navigate('/profile')
+        }
+    }, [currentUser])
     // Create a single state object for all form fields
     const [formData, setFormData] = useState({
         firstName: '',
@@ -22,11 +30,11 @@ export const Register = () => {
             [name]: value,
         });
     };
-    const handleSubmit = async() => {
-        try{
-        const response = await axios.post("http://localhost:3000/api/v1/auth/register", formData, {withCredentials: true})
-        navigate('/login')
-        } catch(e){
+    const handleSubmit = async () => {
+        try {
+            const response = await axios.post("http://localhost:3000/api/v1/auth/register", formData, { withCredentials: true })
+            navigate('/login')
+        } catch (e) {
             setError(e.response.data.message)
         }
     };
@@ -44,7 +52,7 @@ export const Register = () => {
                     <div className="flex flex-wrap -mx-1">
                         <div className="w-1/2 px-1">
                             <div>First Name</div>
-                            <input className="rounded-lg mt-1 mb-1 text-black w-full" type="text" placeholder="John" name="firstName"  value={formData.firstName} onChange={handleChange} />
+                            <input className="rounded-lg mt-1 mb-1 text-black w-full" type="text" placeholder="John" name="firstName" value={formData.firstName} onChange={handleChange} />
                         </div>
                         <div className="w-1/2 px-1">
                             <div>Last Name</div>
@@ -52,17 +60,17 @@ export const Register = () => {
                         </div>
                     </div>
                     <div>Username</div>
-                    <input className="rounded-lg w-full mt-1 mb-1 text-black" type="text" placeholder="JohnDoe123" name="username"  value={formData.username} onChange={handleChange} />
+                    <input className="rounded-lg w-full mt-1 mb-1 text-black" type="text" placeholder="JohnDoe123" name="username" value={formData.username} onChange={handleChange} />
                     <div>E-mail</div>
-                    <input className="rounded-lg w-full mt-1 mb-1 text-black" type="text" placeholder="JohnDoe@example.com" name="email"  value={formData.email}  onChange={handleChange} />
+                    <input className="rounded-lg w-full mt-1 mb-1 text-black" type="text" placeholder="JohnDoe@example.com" name="email" value={formData.email} onChange={handleChange} />
                     <div>Password</div>
-                    <input className="rounded-lg w-full mt-1 mb-1 text-black" type="password" placeholder="********" name="password"  value={formData.password} onChange={handleChange} />
+                    <input className="rounded-lg w-full mt-1 mb-1 text-black" type="password" placeholder="********" name="password" value={formData.password} onChange={handleChange} />
                 </div>
                 {error && <span className="text-neutral-500  font-montserrat font-semibold">{error}</span>}
                 <div className="mt-6">
-                        <Acebutton label={"Sign Up"} size={8} onClick={handleSubmit}/>
+                    <Acebutton label={"Sign Up"} size={8} onClick={handleSubmit} />
                 </div>
-               
+
                 <div className="text-white pt-14 text-3xl flex justify-center text-center ">
                     <p className="w-full font-montserrat font-semibold">
                         "Making Every <span className="text-red-600">Event</span> Effortless"

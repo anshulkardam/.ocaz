@@ -12,7 +12,7 @@ router.put("/update/:id", authMiddleware, async (req, res) => {
     const id = req.params.id;
     const Usertoken = req.user.id
     const { password, avatar, ...inputs } = req.body
-   
+
     if (id !== Usertoken) {
         return res.status(401).json({ message: "not authorized" })
     }
@@ -39,19 +39,40 @@ router.put("/update/:id", authMiddleware, async (req, res) => {
 
 router.delete("/deleteuser/:id", authMiddleware, async (req, res) => {
     const id = req.params.id;
-    const Usertoken = req.user.id 
+    const Usertoken = req.user.id
     if (id !== Usertoken) {
         return res.status(401).json({ message: "not authorized" })
     }
-    try{
+    try {
         await prisma.user.delete({
-            where: {id}
+            where: { id }
         })
-        return res.status(200).json({message:"user deleted successfully"})
-    } catch(e){
-        return res.status(401).json({message:"something went wrong"})
+        return res.status(200).json({ message: "user deleted successfully" })
+    } catch (e) {
+        return res.status(401).json({ message: "something went wrong" })
     }
 })
 
+router.get("/notification", authMiddleware, async (req, res) => {
+    const tokenId = req.user.id
+    try {
+        const number = await prisma.chat.count({
+            where: {
+                userIDs: {
+                    hasSome: [tokenId],
+                },
+                NOT: {
+                    seenBy: {
+                        hasSome: [tokenId],
+                    }
+                }
+            }
+        })
+        res.status(200).json(number)
+    }catch(e){
+        console.log(e)
+        res.status(500).json({message:"Failed to get Notifs!"})
+    }
+})
 export default router;
 // 66c4f2d80f5cdd05ffcbcc97

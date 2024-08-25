@@ -1,4 +1,4 @@
-import {createBrowserRouter,RouterProvider} from "react-router-dom"
+import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { LandingPage } from "./pages/LandingPage"
 import { ListPage } from "./pages/ListPage"
 import { EventInfo } from "./pages/EventInfo"
@@ -8,7 +8,7 @@ import { SignUp } from "./pages/SignUp"
 import { Mybookmarks } from "./pages/Mybookmarks"
 import { UpdateProfile } from "./pages/UpdateProfile"
 import { NewEvent } from "./pages/NewEvent"
-import {  alleventsloader, eventinfoloader } from "./lib/loaders"
+import { alleventsloader, eventinfoloader, profilepageloader } from "./lib/loaders"
 
 function App() {
 
@@ -19,37 +19,38 @@ function App() {
     },
     {
       path: "/listpage",
-      element: (<ListPage />) ,
+      element: (<ListPage />),
       loader: alleventsloader,
     },
     {
       path: "/eventinfo/:id",
-      element: (<EventInfo />) ,
+      element: (<EventInfo />),
       loader: eventinfoloader,
     },
     {
       path: "/profile",
-      element: (<ProfilePage />) ,
+      element: (<ProfilePage />),
+      loader: profilepageloader,
     },
     {
       path: "/login",
-      element: (<Login />) ,
+      element: (<Login />),
     },
     {
       path: "/signup",
-      element: (<SignUp />) ,
+      element: (<SignUp />),
     },
     {
       path: "/bookmarks",
-      element: (<Mybookmarks />) ,
+      element: (<Mybookmarks />),
     },
     {
       path: "/updateprofile",
-      element: (<UpdateProfile />) ,
+      element: (<UpdateProfile />),
     },
     {
       path: "/NewEvent",
-      element: ( <NewEvent/>) ,
+      element: (<NewEvent />),
     },
   ]);
   return (

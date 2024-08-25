@@ -8,8 +8,15 @@ export const eventinfoloader = async({request,params}) => {
 }
  export const alleventsloader = async({request,params}) => {
     const query = request.url.split("?")[1]
-    const response =  axios.get(`http://localhost:3000/api/v1/post/eventslist?${query}`)
+    const response = await axios.get(`http://localhost:3000/api/v1/post/eventslist?${query}`)
     return defer({
         postResponse: response
+    })
+ }
+
+ export const profilepageloader = async( ) => {
+    const chatPromise = await axios.get("http://localhost:3000/api/v1/chat/chats", {withCredentials:true})
+    return defer({
+        chatResponse: chatPromise
     })
  }
