@@ -4,8 +4,7 @@ ocaz. offers your all-access pass to the best events, allowing you to book your 
 -bookmarks
 -your created events
 -stripe
--ui update
--live chat
+-ui updates
 -map data
 -do something aboyt latitude longitude // g.map link?
 -input validation

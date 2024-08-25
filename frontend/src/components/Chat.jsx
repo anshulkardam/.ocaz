@@ -15,7 +15,7 @@ export const Chat = ({ chats }) => {
     const windowclick = async (id, receiver) => {
         try {
             const res = await axios.get(`http://localhost:3000/api/v1/chat/${id}`, { withCredentials: true })
-            if(!res.data.seenBy.includes(currentUser.id)){
+            if (!res.data.seenBy.includes(currentUser.id)) {
                 decrease();
             }
             Setchatwindow({ ...res.data, receiver });
@@ -31,7 +31,7 @@ export const Chat = ({ chats }) => {
         if (!text) return;
         try {
             const res = await axios.post(`http://localhost:3000/api/v1/message/newmsg/${chatwindow.id}`, { text }, { withCredentials: true })
-            Setchatwindow(prev => ({ ...prev, Message: [...prev.Message, res.data] }))
+            Setchatwindow((prev) => ({ ...prev, Message: [...prev.Message, res.data] }))
             e.target.reset()
             socket.emit("sendMessage", {
                 receiverId: chatwindow.receiver.id,
@@ -45,21 +45,24 @@ export const Chat = ({ chats }) => {
     useEffect(() => {
         const read = async () => {
             try {
-                await axios.put(`http://localhost:3000/api/v1/chat/readChat${chatwindow.id}`)
+                await axios.put(`http://localhost:3000/api/v1/chat/readChat/${chatwindow.id}`,{}, { withCredentials: true })
             } catch (e) {
                 console.log(e)
             }
         }
-        console.log("OUTTTTT", chatwindow, socket)
+
         if (chatwindow && socket) {
-            console.log("INNNNNNNNN")
+
             socket.on("getMessage", (data) => {
-                console.log("whsssat", chatwindow.id, data.chatId)
+
                 if (chatwindow.id === data.chatId)
-                    Setchatwindow(prev => ({ ...prev, messages: [...prev.messages, data] }))
+                    Setchatwindow((prev) => ({ ...prev, Message: [...prev.Message, data] }))
                 read();
             })
         }
+        return () => {
+            socket.off("getMessage");
+        };
     }, [chatwindow, socket])
     const MessageEndRef = useRef()
 
@@ -69,7 +72,7 @@ export const Chat = ({ chats }) => {
 
     }, [chatwindow])
 
-    const decrease = useNotifStore((state)=> state.decrease)
+    const decrease = useNotifStore((state) => state.decrease)
 
     return (<div>
         {chatwindow && (

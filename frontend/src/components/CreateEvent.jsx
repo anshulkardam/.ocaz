@@ -67,63 +67,6 @@ export const CreateEvent = () => {
                                     </div>
                                     <textarea name="description" className="border mt-1 border-neutral-800 border-opacity-50 rounded-md w-full h-44" placeholder="Write about the Event"></textarea>
                                 </div>
-                                <div className="flex gap-2 mb-2">
-                                    <div className="font-montserrat font-semibold text-sm">Type
-                                        <input
-                                            className="p-2 rounded-md w-2xl border mt-1 border-neutral-800 border-opacity-50 font-montserrat text-sm"
-                                            placeholder="ex. Hip Hop Concert"
-                                            name="type"
-                                        />
-                                    </div>
-                                    <div className="font-montserrat font-semibold text-sm">Price
-                                        <input
-                                            className="p-2 rounded-md w-sm border mt-1 border-neutral-800 border-opacity-50 font-montserrat font-medium"
-                                            placeholder="INR"
-                                            name="price"
-                                        />
-                                    </div>
-
-                                </div>
-                                <div className="flex gap-2 ">
-
-                                    <div className="font-montserrat font-semibold text-sm"> Date
-                                        <Datepicker name="date" />
-                                    </div>
-
-
-                                    <div className="font-montserrat font-semibold text-sm">Time
-                                        <div className="relative">
-                                            <div className="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
-                                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                                                    <path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clipRule="evenodd" />
-                                                </svg>
-                                            </div>
-                                            <input name="time" type="time" id="time" className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="00:00" />
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
-                            <div className="col-span-5">
-                                <div className="flex gap-2 mb-2">
-                                    <div className="font-montserrat font-semibold text-sm">Venue
-                                        <input
-                                            className="p-2 rounded-md w-full border mt-1 border-neutral-800 border-opacity-50 font-montserrat font-medium"
-                                            placeholder="Talkatora Stadium, New Delhi"
-                                            name="venue"
-                                        />
-                                    </div>
-                                    <div className="font-montserrat font-semibold text-sm">City
-                                        <input
-                                            className="p-2 rounded-md w-full border mt-1 border-neutral-800 border-opacity-50 font-montserrat font-medium"
-                                            placeholder="New Delhi"
-                                            name="city"
-                                        />
-                                    </div>
-
-                                </div>
-
                                 <div className="font-montserrat font-semibold text-sm mb-2">Address
                                     <input
                                         className="p-2 rounded-md w-full border mt-1 border-neutral-800 border-opacity-50 font-montserrat font-medium"
@@ -147,31 +90,82 @@ export const CreateEvent = () => {
                                         />
                                     </div>
                                 </div>
+
+                            </div>
+                            <div className="col-span-5">
+
+                                <div className="flex gap-2 mb-2 ">
+                                    <div className="font-montserrat font-semibold text-sm w-[65%] cursor-pointer"> Date
+                                        <Datepicker name="date" className="cursor-pointer" />
+                                    </div>
+                                    <div className="font-montserrat font-semibold text-sm w-[35%] cursor-pointer">Time
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 end-0 top-0 flex items-center pe-3.5 pointer-events-none">
+                                                <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                                    <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm11-4a1 1 0 1 0-2 0v4a1 1 0 0 0 .293.707l3 3a1 1 0 0 0 1.414-1.414L13 11.586V8Z" clipRule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <input name="time" type="time" id="time" className="bg-gray-50 border leading-none border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" defaultValue="00:00" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex gap-2 mb-2">
+                                    <div className="font-montserrat font-semibold text-sm w-[65%]">Venue
+                                        <input
+                                            className="p-2 rounded-md w-full border mt-1 border-neutral-800 border-opacity-50 font-montserrat font-medium"
+                                            placeholder="Talkatora Stadium, New Delhi"
+                                            name="venue"
+                                        />
+                                    </div>
+                                    <div className="font-montserrat font-semibold text-sm w-[35%]">City
+                                        <input
+                                            className="p-2 rounded-md w-full border mt-1 border-neutral-800 border-opacity-50 font-montserrat font-medium"
+                                            placeholder="New Delhi"
+                                            name="city"
+                                        />
+                                    </div>
+                                </div>
+                                <div className="flex mb-2 gap-2">
+                                    <div className="font-montserrat font-semibold text-sm w-[65%]">Type
+                                        <input
+                                            className="p-2 w-full rounded-md w-2xl border mt-1 border-neutral-800 border-opacity-50 font-montserrat text-sm"
+                                            placeholder="ex. Hip Hop Concert"
+                                            name="type"
+                                        />
+                                    </div>
+                                    <div className="font-montserrat font-semibold text-sm w-[35%]">Price
+                                        <input
+                                            className="p-2 w-full rounded-md w-sm border mt-1 border-neutral-800 border-opacity-50 font-montserrat font-medium"
+                                            placeholder="INR"
+                                            name="price"
+                                        />
+                                    </div>
+                                </div>
                                 <div className="mb-2">
                                     <div className="font-montserrat font-semibold text-sm">
                                         Directions
                                     </div>
                                     <textarea name="directions" className="border mt-1 border-neutral-800 border-opacity-50 rounded-md w-full" placeholder="Provide specific directions or landmarks here..."></textarea>
                                 </div>
-                                <div className="flex mb-2 gap-5">
-                                    <div className="font-montserrat font-semibold text-sm">Alcohol
-                                        <select id="countries" defaultValue="" name="alcohol" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <div className="flex mb-2 gap-2">
+                                    <div className="font-montserrat font-semibold text-sm flex-2">Alcohol
+                                        <select id="countries" defaultValue="" name="alcohol" className=" w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                             <option value="" disabled>Choose</option>
                                             <option value="true">Allowed</option>
                                             <option value="false">Not Allowed</option>
                                         </select>
                                     </div>
-                                    <div className="font-montserrat font-semibold text-sm">
+                                    <div className="font-montserrat font-semibold text-sm flex-1">
                                         Tickets
-                                        <input name="tickets" type="number" id="number-input" aria-describedby="helper-text-explanation" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1000" required />
+                                        <input name="tickets" type="number" id="number-input" aria-describedby="helper-text-explanation" className="w-full bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block  p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1000" required />
                                     </div>
-                                    <div className="font-montserrat font-semibold text-sm">
+                                    <div className="font-montserrat font-semibold text-sm flex-1">
                                         VIP Tickets
                                         <input name="vip" type="number" id="number-input" aria-describedby="helper-text-explanation" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="100" required />
                                     </div>
                                 </div>
                                 <div>
-                                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="multiple_files">Upload Images</label>
+                                    <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white" htmlFor="multiple_files">Upload Images</label>
                                     <div className="flex items-center">
                                         <CloudinaryUploadWidget uwConfig={{
                                             cloudName: "du9f90ci8",
