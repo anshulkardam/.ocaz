@@ -73,7 +73,7 @@ export const UserDashboard = () => {
                         <Acebutton label={"Create New Event"} size={8} />
                     </Link>
                 </div>
-                
+                <div>Created Events!</div>
             </div>
             <div className="col-span-5 p-4 text-white h-[100vh] overflow-y-scroll">
                 <div className="h-[300px]">
