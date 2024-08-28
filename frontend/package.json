@@ -29,6 +29,7 @@
     "react-element-to-jsx-string": "^15.0.0",
     "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.26.0",
+    "react-toastify": "^10.0.5",
     "socket.io-client": "^4.7.5",
     "tailwind-merge": "^2.5.2",
     "timeago.js": "^4.0.2",

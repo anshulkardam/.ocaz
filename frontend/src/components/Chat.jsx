@@ -95,7 +95,7 @@ export const Chat = ({ chats }) => {
                         X
                     </div>
                 </div>
-                <div className="h-[250px] bg-slate-100 text-black p-1 overflow-y-scroll">
+                <div className="h-[250px] bg-grid text-black p-1 overflow-y-scroll">
                     {chatwindow.Message.map((msg) => (
                         <div
                             key={msg.id}
@@ -106,12 +106,12 @@ export const Chat = ({ chats }) => {
 
                                 <div className="flex flex-col items-start">
                                     <p
-                                        className={`border border-black p-1.5 rounded-md ${msg.userId === currentUser.id ? "bg-blue-200 text-right" : "bg-green-200 text-left"
+                                        className={`p-1.5 rounded-md font-poppins ${msg.userId === currentUser.id ? "bg-green-200 text-right" : "bg-blue-200 text-left"
                                             }`}
                                     >
                                         {msg.text}
                                     </p>
-                                    <p className="text-xs text-slate-600 ml-2">
+                                    <p className="text-xs text-slate-300 font-thin ml-2">
                                         {format(msg.createdAt)}
                                     </p>
                                 </div>
@@ -135,11 +135,11 @@ export const Chat = ({ chats }) => {
         <div className="flex flex-col p-6 cursor-pointer">
             {
                 chats?.map((c) => (
-                    <div key={c.id} className="flex mb-4 gap-2  border border-white p-3 rounded-md" onClick={() => windowclick(c.id, c.receiver)} style={{ backgroundColor: c.seenBy.includes(currentUser.id) ? "" : "gray" }}>
-                        <img src={c.receiver.avatar || "/default-avatar.jpg"} className="rounded-full h-6 w-6" alt="John Doe" />
+                    <div key={c.id} className="flex mb-4 gap-2 bg-grid p-3 rounded-md" onClick={() => windowclick(c.id, c.receiver)} style={{ backgroundColor: c.seenBy.includes(currentUser.id) ? "" : "gray" }}>
+                        <img src={c.receiver.avatar || "/default-avatar.jpg"} className="rounded-full border-2 border-red-500 h-6 w-6" alt="John Doe" />
                         <div >
-                            <p>{c.receiver.username}
-                                <span className="ml-2">{c.lastMessage}</span>
+                            <p className="font-semibold">{c.receiver.username}
+                                <span className="ml-2 font-light">{c.lastMessage}</span>
                             </p>
                         </div>
                     </div>

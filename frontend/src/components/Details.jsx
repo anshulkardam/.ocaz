@@ -6,6 +6,7 @@ import "leaflet/dist/leaflet.css"
 import { useContext, useEffect } from "react";
 import { Authcontext } from "../context/authContext";
 import { Terms } from "./T&C";
+import { ChatModal } from "./chatmodal";
 export const Details = () => {
     const eventdetails = singlePostData;
     const navigate = useNavigate()
@@ -33,21 +34,18 @@ export const Details = () => {
                                 </div>
                             </Link>
                             <div className="flex justify-center w-full ">
-                                <button type="button" className="w-full justify-center px-3 py-2 text-xs font-medium text-center inline-flex items-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                    <svg className="w-3 h-3 text-white me-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                                        <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-                                        <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
-                                    </svg>
-                                    Message
-                                </button>
+                                <ChatModal userID = {details.userId}/>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="flex justify-between pt-5 text-white">
-                    <div>
-                        <div className="flex text-3xl font-montserrat font-bold">
+
+                <div className="pt-5 bg-red-400 w-2/3 text-white">
+                     
+                        <div className="text-3xl font-montserrat font-bold">
                             <div className="">{details.title}</div>
+                        </div>
+                        <div className="flex justify-between">
                             <div className="text-red-400 pl-5 ">₹{details.price}</div>
                             <div> Buy Tickets</div>
                         </div>
@@ -57,11 +55,9 @@ export const Details = () => {
                             </svg>
                             {details.address}
                         </div>
-                    </div>
-
+                    
+                        <div className="text-slate-100 font-semibold">{details.PostDetails.desc}</div>
                 </div>
-
-                <div className="text-slate-100 font-semibold">{details.PostDetails.desc}</div>
                 <Terms />
             </div>
             <div className="col-span-4 border-l-2 p-5 text-white min-h-screen">
@@ -69,34 +65,33 @@ export const Details = () => {
                     <div className="font-montserrat font-semibold text-lg">
                         <span className="font-playwrite-nz text-red-600 mr-1">event</span> details
                     </div>
-                    <div className="flex  text-base items-center">
-                        <svg className="w-5 h-5 items-center flex flex-col text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+
+                    <div className="flex items-center space-x-2 text-base">
+                        <svg className="w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                             <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8v4l3 3m6-3a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        <span className="ml-2 font-semibold font-poppins"> {details.PostDetails.time} onwards </span>
+                        <span className="ml-2 font-semibold font-poppins">{details.PostDetails.time} onwards</span>
                     </div>
 
-                    <div className="flex font-semibold">
-                        <svg className="w-5 h-5 text-text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                    <div className="flex items-center space-x-2 font-semibold mt-2">
+                        <svg className="w-5 h-5 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path fillRule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clipRule="evenodd" />
                         </svg>
-
-                        <span className="mr-1 ml-4 "> Alcohol is </span>   <span> {details.PostDetails.alcohol ? " Allowed" : " Not Allowed"} </span>
+                        <span>Alcohol is</span>
+                        <span>{details.PostDetails.alcohol ? "Allowed" : "Not Allowed"}</span>
                     </div>
-                    <div className="text-sm flex font-semibold">
-                        <svg className="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+
+                    <div className="flex items-center space-x-2 font-semibold mt-2">
+                        <svg className="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M4 5a2 2 0 0 0-2 2v2.5a1 1 0 0 0 1 1 1.5 1.5 0 1 1 0 3 1 1 0 0 0-1 1V17a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2.5a1 1 0 0 0-1-1 1.5 1.5 0 1 1 0-3 1 1 0 0 0 1-1V7a2 2 0 0 0-2-2H4Z" />
                         </svg>
-
-                        <div className="ml-4 space-x-4">
-                            <span> Tickets {details.PostDetails.tickets}
-                            </span>
-                            <span>
-                                VIP {details.PostDetails.vip}
-                            </span></div>
-
+                        <span>Tickets</span>
+                        <span>{details.PostDetails.tickets}</span>
+                        <span>VIP</span>
+                        <span>{details.PostDetails.vip}</span>
                     </div>
                 </div>
+
                 <div className="text-sm items-center flex gap-2">
                     <div className="font-montserrat font-semibold text-lg text-red-400">
                         Save this <span className="font-playwrite-nz text-red-600 mr-1">event</span>

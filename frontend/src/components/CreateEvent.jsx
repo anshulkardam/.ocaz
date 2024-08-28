@@ -171,6 +171,7 @@ export const CreateEvent = () => {
                                             cloudName: "du9f90ci8",
                                             uploadPreset: "ocazUPLOAD",
                                             multiple: true,
+                                            maxFiles: 4 - images.length,
                                             maxImageFileSize: 8000000,
                                             folder: "posts",
                                         }} setState={setImages} />

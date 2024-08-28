@@ -66,7 +66,7 @@ export const UserDashboard = () => {
                     </div>
                 </div>
                 <div className="flex justify-evenly mt-4">
-                    <Link to={'/bookmarks'}>
+                    <Link to={'/listpage'}>
                         <Acebutton label={"Your Saved Events!"} size={8} />
                     </Link>
                     <Link to={'/NewEvent'}>
