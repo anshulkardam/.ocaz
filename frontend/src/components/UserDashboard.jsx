@@ -1,5 +1,5 @@
 import { Suspense, useContext, useEffect, useState } from "react"
-import { Chat } from "./chat"
+import { Chat } from "./Chat"
 import { Acebutton } from "./ui/Acebutton"
 import { Await, Link, useLoaderData, useNavigate } from "react-router-dom"
 import axios from "axios"
