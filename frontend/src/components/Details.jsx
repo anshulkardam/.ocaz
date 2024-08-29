@@ -1,7 +1,7 @@
 import { Link, useLoaderData, useNavigate } from "react-router-dom"
 import { Slider } from "./Slider"
 import { singlePostData, userData } from "../db/dummydata"
-import { Map } from "./ui/map";
+import { Map } from "./ui/Map";
 import { HiShoppingCart } from "react-icons/hi";
 import "leaflet/dist/leaflet.css"
 import { useContext, useEffect } from "react";

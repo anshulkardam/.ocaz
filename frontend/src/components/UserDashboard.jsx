@@ -1,7 +1,6 @@
 import { Suspense, useContext, useEffect, useState } from "react"
 import { Chat } from "./chat"
-import { SavedList } from "./SavedList"
-import { Acebutton } from "./ui/acebutton"
+import { Acebutton } from "./ui/Acebutton"
 import { Await, Link, useLoaderData, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { Authcontext } from "../context/authContext"
