@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { create } from 'zustand'
+import { apiUrl } from './loaders';
 
 export const useNotifStore = create((set) => ({
     number: 0,
     fetch: async () => {
-        const res = await axios.get("http://localhost:3000/api/v1/user/notification",  { withCredentials: true })
+        const res = await axios.get(`${apiUrl}/api/v1/user/notification`,  { withCredentials: true })
         set({ number: res.data })
     },
     decrease: () => {
