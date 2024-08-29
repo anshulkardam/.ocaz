@@ -5,6 +5,7 @@ import { Await, Link, useLoaderData, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { Authcontext } from "../context/authContext"
 import { Cards } from "./Cards"
+import { apiUrl } from "../lib/loaders"
 
 export const UserDashboard = () => {
     const { currentUser, updateUser } = useContext(Authcontext)
@@ -18,7 +19,7 @@ export const UserDashboard = () => {
     }, [currentUser, navigate])
     async function handlelogout() {
         try {
-            const res = await axios.post("http://localhost:3000/api/v1/auth/logout", {}, { withCredentials: true })
+            const res = await axios.post(`${apiUrl}/api/v1/auth/logout`, {}, { withCredentials: true })
             updateUser(null)
             navigate('/')
         } catch (e) {

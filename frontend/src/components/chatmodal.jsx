@@ -2,6 +2,7 @@ import axios from "axios";
 import { Button, Modal } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../lib/loaders";
 
 export function ChatModal({ userID }) {
     const inputRef = useRef(null);
@@ -17,13 +18,13 @@ export function ChatModal({ userID }) {
     };
     async function Checkx() {
         console.log("hi from checkx")
-        const res = await axios.post("http://localhost:3000/api/v1/chat/addchat", { receiverId: userID }, { withCredentials: true })
+        const res = await axios.post(`${apiUrl}/api/v1/chat/addchat`, { receiverId: userID }, { withCredentials: true })
         console.log("checkdata:",res.data)
         setID(res.data.id)
     }
     async function chatmsg(message) {
         console.log("hi from chatmsg",msg)
-        await axios.post(`http://localhost:3000/api/v1/message/newmsg/${Id}`,{text: message }, {withCredentials:true})
+        await axios.post(`${apiUrl}/api/v1/message/newmsg/${Id}`,{text: message }, {withCredentials:true})
         navigate('/profile')
     }
      

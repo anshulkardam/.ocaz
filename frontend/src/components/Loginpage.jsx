@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import { Acebutton } from "./ui/Acebutton"
 import { Authcontext } from "../context/authContext"
+import { apiUrl } from "../lib/loaders"
 
 
 export const Loginpage = () => {
@@ -28,7 +29,7 @@ export const Loginpage = () => {
     }
     async function handleSubmit() {
         try{
-        const response = await axios.post("http://localhost:3000/api/v1/auth/login", formData, {withCredentials: true})
+        const response = await axios.post(`${apiUrl}/api/v1/auth/login`, formData, {withCredentials: true})
        
         updateUser(response.data)
         navigate('/listpage')

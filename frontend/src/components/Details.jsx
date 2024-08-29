@@ -12,7 +12,7 @@ import { Button } from "flowbite-react";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 export const Details = () => {
-    const eventdetails = singlePostData;
+    
     const navigate = useNavigate()
     const { currentUser } = useContext(Authcontext)
     useEffect(() => {
@@ -20,7 +20,7 @@ export const Details = () => {
             navigate('/login')
         }
     }, [currentUser, navigate])
-    const userdata = userData;
+    
     const details = useLoaderData();
     function notify() {
         toast.info("Coming Soon!");

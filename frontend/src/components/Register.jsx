@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import axios from 'axios'
 import { Acebutton } from "./ui/Acebutton"
 import { Authcontext } from "../context/authContext"
+import { apiUrl } from "../lib/loaders"
 
 export const Register = () => {
     const navigate = useNavigate()
@@ -32,7 +33,7 @@ export const Register = () => {
     };
     const handleSubmit = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/auth/register", formData, { withCredentials: true })
+            const response = await axios.post(`${apiUrl}/api/v1/auth/register`, formData, { withCredentials: true })
             navigate('/login')
         } catch (e) {
             setError(e.response.data.message)

@@ -3,6 +3,7 @@ import { Authcontext } from "../context/authContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import CloudinaryUploadWidget from "./UploadWidget";
+import { apiUrl } from "../lib/loaders";
 
 export const UpdateProfileCard = () => {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ export const UpdateProfileCard = () => {
         console.log(password)
         try {
             const response = await axios.put(
-                `http://localhost:3000/api/v1/user/update/${currentUser.id}`,
+                `${apiUrl}/api/v1/user/update/${currentUser.id}`,
                 {username,firstName,lastName,password,avatar:avatar[0]}, {withCredentials: true}
             );
             updateUser(response.data);

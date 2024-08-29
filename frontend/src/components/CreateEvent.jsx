@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useState } from "react";
 import CloudinaryUploadWidget from "./UploadWidget";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../lib/loaders";
 export const CreateEvent = () => {
     const navigate = useNavigate()
     const [images, setImages] = useState([])
@@ -13,7 +14,7 @@ export const CreateEvent = () => {
         const inputs = Object.fromEntries(Formdata)
         console.log(inputs)
         try {
-            const response = await axios.post(`http://localhost:3000/api/v1/post/createEvent`, {
+            const response = await axios.post(`${apiUrl}/api/v1/post/createEvent`, {
                 postData: {
                     title: inputs.title,
                     type: inputs.type,
