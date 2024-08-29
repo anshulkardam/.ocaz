@@ -2,11 +2,15 @@ import { Link, useLoaderData, useNavigate } from "react-router-dom"
 import { Slider } from "./Slider"
 import { singlePostData, userData } from "../db/dummydata"
 import { Map } from "./ui/map";
+import { HiShoppingCart } from "react-icons/hi";
 import "leaflet/dist/leaflet.css"
 import { useContext, useEffect } from "react";
 import { Authcontext } from "../context/authContext";
 import { Terms } from "./T&C";
 import { ChatModal } from "./chatmodal";
+import { Button } from "flowbite-react";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 export const Details = () => {
     const eventdetails = singlePostData;
     const navigate = useNavigate()
@@ -18,7 +22,9 @@ export const Details = () => {
     }, [currentUser, navigate])
     const userdata = userData;
     const details = useLoaderData();
-    console.log("neW", details)
+    function notify() {
+        toast.info("Coming Soon!");
+    }
     return (currentUser && (<div className="bg-black pl-16">
         <div className="grid grid-cols-12 text-black">
             <div className="col-span-8 pt-4">
@@ -34,29 +40,37 @@ export const Details = () => {
                                 </div>
                             </Link>
                             <div className="flex justify-center w-full ">
-                                <ChatModal userID = {details.userId}/>
+                                <ChatModal userID={details.userId} />
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div className="pt-5 bg-red-400 w-2/3 text-white">
-                     
-                        <div className="text-3xl font-montserrat font-bold">
-                            <div className="">{details.title}</div>
-                        </div>
-                        <div className="flex justify-between">
-                            <div className="text-red-400 pl-5 ">₹{details.price}</div>
-                            <div> Buy Tickets</div>
-                        </div>
-                        <div className="text-md items-center text-silver flex mb-2">
-                            <svg className="w-4 h-4 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                <div className="pt-5 px-3 text-white">
+
+                    <div className="text-3xl font-montserrat font-bold">
+                        <div className="">{details.title}</div>
+                    </div>
+                    <div className="flex justify-between">
+                        <div className="text-md items-start  px-1 text-slate-100 flex mb-2">
+                            <svg className="w-4 h-4 mr-1 mt-1 text-white  items-center dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
                                 <path fillRule="evenodd" d="M11.906 1.994a8.002 8.002 0 0 1 8.09 8.421 7.996 7.996 0 0 1-1.297 3.957.996.996 0 0 1-.133.204l-.108.129c-.178.243-.37.477-.573.699l-5.112 6.224a1 1 0 0 1-1.545 0L5.982 15.26l-.002-.002a18.146 18.146 0 0 1-.309-.38l-.133-.163a.999.999 0 0 1-.13-.202 7.995 7.995 0 0 1 6.498-12.518ZM15 9.997a3 3 0 1 1-5.999 0 3 3 0 0 1 5.999 0Z" clipRule="evenodd" />
                             </svg>
                             {details.address}
                         </div>
-                    
-                        <div className="text-slate-100 font-semibold">{details.PostDetails.desc}</div>
+                        <div className="flex mb-8">
+                            <div className="text-lg bg-green-200 rounded-s-md font-bold text-black  px-3 py-1">
+                                ₹{details.price.toLocaleString()}
+                            </div>
+                            <Button onClick={notify} className="bg-red-600 text-white hover:bg-yellow-700 rounded-s-none" size="sm">
+                                <HiShoppingCart className="mr-2 h-5 w-5" />
+                                Buy now
+                            </Button>
+                            <ToastContainer />
+                        </div>
+
+                    </div>
+                    <div className="text-slate-100 font-semibold  rounded-md py-2 px-1 bg-grid">{details.PostDetails.desc}</div>
                 </div>
                 <Terms />
             </div>
@@ -96,7 +110,7 @@ export const Details = () => {
                     <div className="font-montserrat font-semibold text-lg text-red-400">
                         Save this <span className="font-playwrite-nz text-red-600 mr-1">event</span>
                     </div>
-                    <svg className="w-5 h-5 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 text-white mt-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                         <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m17 21-5-4-5 4V3.889a.92.92 0 0 1 .244-.629.808.808 0 0 1 .59-.26h8.333a.81.81 0 0 1 .589.26.92.92 0 0 1 .244.63V21Z" />
                     </svg>
                 </div>
@@ -105,7 +119,7 @@ export const Details = () => {
                         Location
                     </div>
                     <div className="w-full h-[300px] ">
-                        <Map items={[singlePostData]} />
+                        <Map items={[details]} />
                     </div>
                 </div>
             </div>

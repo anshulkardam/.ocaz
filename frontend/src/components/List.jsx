@@ -6,8 +6,9 @@ import { Suspense, useState } from "react";
 import { Await, Link, useLoaderData, useNavigate, useSearchParams } from "react-router-dom";
 
 export const List = () => {
-    const data = listData;
+    
     const eventlist = useLoaderData()
+    
     const [searchdata, setsearchData] = useSearchParams()
 
     const navigate = useNavigate()
@@ -23,6 +24,7 @@ export const List = () => {
     const handleSubmit = () => {
         navigate(`/list?city=${query.city}&minPrice=${minPrice}&maxPrice=${maxPrice}`)
     }
+   
     return <div className="bg-neutral-950 min-h-screen text-white">
         <div className="grid grid-cols-12">
             <div className="col-span-8 pl-5 pt-5">
@@ -39,7 +41,7 @@ export const List = () => {
                             className="rounded-md p-1.5 font-poppins  flex-grow"
                             onChange={handlechange}
                             defaultValue={searchdata.get("city")}
-                             
+
                         />
                         <input
                             type="number"
@@ -69,9 +71,8 @@ export const List = () => {
 
 
 
-                <div className=" font-semibold font-playwrite-nz text-lg text-red-500 py-2">upcoming events: </div>
-                <div className=" h-[800px] overflow-y-scroll pt-1 p-2
-                ">
+                <div className=" font-semibold text-center mt-1 font-playwrite-nz text-lg text-red-500 py-2">upcoming events: </div>
+                <div className=" h-[800px] overflow-y-scroll pt-1 p-2">
                     <Suspense
                         fallback={<p>Loading events...</p>}
                     >
@@ -82,11 +83,11 @@ export const List = () => {
                             }
                         >
                             {(postResponse) => (
-                                postResponse.data.map(items => (
-                                    <div className="py-3">
-                                    <div className="border-black border-2 bg-red-600 rounded-md ">
-                                        <Cards key={items.id} item={items} />
-                                    </div>
+                                postResponse.data.map((items,i) => (
+                                    <div className="py-2.5" key={i}>
+                                        <div className="border-black border-2 bg-slate-50 rounded-md ">
+                                            <Cards  item={items} />
+                                        </div>
                                     </div>
                                 ))
                             )}
@@ -96,8 +97,22 @@ export const List = () => {
 
             </div>
             <div className="col-span-4 mr-2 relative z-10" >
-                {/* //Suspense here also */}
-                <Map items={data} />
+                <Suspense
+                    fallback={<p>Loading events...</p>}
+                >
+                    <Await
+                        resolve={eventlist.postResponse}
+                        errorElement={
+                            <p>Error loading events</p>
+                        }
+                    >
+                        {(postResponse) => (
+
+                            <Map items={postResponse.data} />
+
+                        )}
+                    </Await>
+                </Suspense>
             </div>
         </div>
     </div>

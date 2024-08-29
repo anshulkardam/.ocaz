@@ -5,12 +5,13 @@ import { Acebutton } from "./ui/acebutton"
 import { Await, Link, useLoaderData, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { Authcontext } from "../context/authContext"
+import { Cards } from "./Cards"
 
 export const UserDashboard = () => {
     const { currentUser, updateUser } = useContext(Authcontext)
 
     const navigate = useNavigate()
-   
+
     useEffect(() => {
         if (!currentUser) {
             navigate('/login')
@@ -26,6 +27,7 @@ export const UserDashboard = () => {
         }
     }
     const data = useLoaderData()
+    
     return (currentUser && (<div className="bg-black min-h-screen">
         <div className="grid grid-cols-10">
             <div className="col-span-5 pl-10   text-white">
@@ -73,17 +75,41 @@ export const UserDashboard = () => {
                         <Acebutton label={"Create New Event"} size={8} />
                     </Link>
                 </div>
-                <div>Created Events!</div>
+                <div className=" pt-4">
+                    <div className="text-xl font-montserrat font-semibold text-center">Your created <span className="text-orange-600 font-playwrite-nz">events</span></div>
+                    <div className=" h-[600px] overflow-y-scroll pt-1 p-2">
+                        <Suspense
+                            fallback={<p>Loading events...</p>}
+                        >
+                            <Await
+                                resolve={data.Eventresponse}
+                                errorElement={
+                                    <p>Error loading events</p>
+                                }
+                            >
+                                {(Eventresponse) => (
+                                    Eventresponse.data.filter((item) => (item.userId  === currentUser.id )).map(items => (
+                                        <div key={items.id} className="py-2.5">
+                                            <div className="border-black border-2 bg-white rounded-md ">
+                                                <Cards  item={items} />
+                                            </div>
+                                        </div>
+                                    ))
+                                )}
+                            </Await>
+                        </Suspense>
+                    </div>
+                </div>
             </div>
             <div className="col-span-5 p-4 text-white h-[100vh] overflow-y-scroll">
-                <div className="h-[300px]">
+                <div className="h-[600px] ">
                     <div className="text-lg font-montserrat font-semibold text-center">Your <span className="text-orange-600 font-playwrite-nz">messages</span></div>
                     <Suspense fallback={<p>Loading...</p>} >
                         <Await
                             resolve={data.chatResponse}
                             errorElement={<p>Error Loading Messages!</p>}
                         >
-                            {(chatResponse) => <Chat chats={chatResponse.data}/>}
+                            {(chatResponse) => <Chat chats={chatResponse.data} />}
                         </Await>
                     </Suspense>
 

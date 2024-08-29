@@ -6,12 +6,13 @@ export function FooterComponent() {
   return (
     <Footer container className="bg-black rounded-none">
       <div className="w-full bg-black text-white text-center">
-        <div className="bg-black justify-between sm:flex sm:items-center sm:justify-between">
+        <div className="bg-black text-white justify-between sm:flex sm:items-center sm:justify-between">
           <Footer.Brand
             href="/"
             src="./123.png"
             alt=".ocaz Logo"
             name=".ocaz"
+            color="white"
           />
           <Footer.LinkGroup>
             <Footer.Link href="#">About</Footer.Link>

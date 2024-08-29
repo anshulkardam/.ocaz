@@ -4,7 +4,7 @@ import { Link } from "react-router-dom"
 export const Pins = ({ item }) => {
    
     return (
-        <Marker position={[item.latitude, item.longitude]}>
+        <Marker position={[item.langitude, item.longitude]}>
             <Link to={`/eventinfo/${item.id}`} >
             <Popup>
                 <div className="flex">

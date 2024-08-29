@@ -15,8 +15,10 @@ export const eventinfoloader = async({request,params}) => {
  }
 
  export const profilepageloader = async( ) => {
+    const response = await axios.get(`http://localhost:3000/api/v1/post/eventslist`)
     const chatPromise = await axios.get("http://localhost:3000/api/v1/chat/chats", {withCredentials:true})
     return defer({
+        Eventresponse : response,
         chatResponse: chatPromise
     })
  }
