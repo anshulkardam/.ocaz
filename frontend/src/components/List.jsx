@@ -1,6 +1,5 @@
-import { listData } from "../db/dummydata"
 import { Cards } from "./Cards";
-import { Map } from "./ui/map";
+import { Map } from "./ui/Map";
 import "leaflet/dist/leaflet.css"
 import { Suspense, useState } from "react";
 import { Await, Link, useLoaderData, useNavigate, useSearchParams } from "react-router-dom";

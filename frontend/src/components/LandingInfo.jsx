@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom"
-import { Acebutton } from "./ui/acebutton"
+import { Acebutton } from "./ui/Acebutton"
 import { InfiniteMovingCards } from "./ui/MovingCards";
 import { useState } from "react";
 
