@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get("/allusers", async (req, res) => {
     const data = await prisma.user.findMany({})
-    return res.json(data)
+    return res.status(200).json(data)
 })
 router.put("/update/:id", authMiddleware, async (req, res) => {
     const id = req.params.id;

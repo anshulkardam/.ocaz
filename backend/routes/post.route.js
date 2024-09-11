@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.get("/eventslist", async (req, res) => {
     const query = req.query
-    console.log(query)
+
     try {
         const posts = await prisma.post.findMany({
             where: {
@@ -19,62 +19,69 @@ router.get("/eventslist", async (req, res) => {
 
             }
         })
-        return res.json(posts)
+        return res.status(200).json(posts)
     } catch (e) {
-        return res.json({ message: "error found" })
+        return res.status(500).json({ message: "error found" })
     }
 })
 router.post("/createEvent", authMiddleware, async (req, res) => {
     const body = req.body
     const usertoken = req.user.id
-    console.log(usertoken)
-
-    const post = await prisma.post.create({
-        data: {
-            ...body.postData,
-            userId: usertoken,
-            PostDetails: {
-                create: body.PostDetails
+    try {
+        const post = await prisma.post.create({
+            data: {
+                ...body.postData,
+                userId: usertoken,
+                PostDetails: {
+                    create: body.PostDetails
+                }
             }
-        }
-    })
-    return res.json(post)
+        })
+        return res.status(201).json(post)
+    } catch (e) {
+        return res.status(409).json({ message: "error found" })
+    }
 
 })
 router.get("/event/:id", async (req, res) => {
     const id = req.params.id
-    console.log(id)
-    const event = await prisma.post.findUnique({
-        where: { id },
-        include: {
-            PostDetails: true,
-            user: {
-                select: {
-                    username: true,
-                    avatar: true,
-                }
-            },
-        }
-    })
-    return res.json(event)
+    try {
+        const event = await prisma.post.findUnique({
+            where: { id },
+            include: {
+                PostDetails: true,
+                user: {
+                    select: {
+                        username: true,
+                        avatar: true,
+                    }
+                },
+            }
+        })
+        return res.status(200).json(event)
+    } catch (e) {
+        return res.status(404).json({ message: "error found" })
+    }
 })
 
 router.delete("/deleteEvent/:id", authMiddleware, async (req, res) => {
     const id = req.params.id
     const usertoken = req.user.id
-    console.log("id", id)
-    console.log("usertoken", usertoken)
-    const usercheck = await prisma.post.findUnique({
-        where: { id }
-    })
-    console.log("usertoken userid", usercheck.userId)
-    if (usertoken !== usercheck.userId) {
+    try {
+        const usercheck = await prisma.post.findUnique({
+            where: { id }
+        })
 
+        if (usertoken !== usercheck.userId) {
+
+        }
+        const delevent = await prisma.post.delete({
+            where: { id }
+        })
+        return res.status(200).json(delevent)
+    } catch (e) {
+        return res.status(500).json({ message: "error found" })
     }
-    const delevent = await prisma.post.delete({
-        where: { id }
-    })
-    return res.json(delevent)
 })
 
 router.put("/updateEvent/:id", authMiddleware, async (req, res) => {
@@ -84,30 +91,34 @@ router.put("/updateEvent/:id", authMiddleware, async (req, res) => {
 router.post("/bookmarks", authMiddleware, async (req, res) => {
     const postId = req.body.postId;
     const usertoken = req.user.id
-    const bookmarks = await prisma.bookmarks.findUnique({
-        where: {
-            userId_postId: {
-                userId: usertoken,
-                postId
-            }
-        }
-    })
-    if (bookmarks) {
-        await prisma.bookmarks.delete({
+    try {
+        const bookmarks = await prisma.bookmarks.findUnique({
             where: {
-                id: bookmarks.id
+                userId_postId: {
+                    userId: usertoken,
+                    postId
+                }
             }
         })
-        return res.json({ message: "Bookmark removed" })
-    }
-    else {
-        await prisma.bookmarks.create({
-            data:{
-                userId: usertoken,
-                postId
-            }
-        })
-        return res.json({ message: "Bookmark saved" })
+        if (bookmarks) {
+            await prisma.bookmarks.delete({
+                where: {
+                    id: bookmarks.id
+                }
+            })
+            return res.json({ message: "Bookmark removed" })
+        }
+        else {
+            await prisma.bookmarks.create({
+                data: {
+                    userId: usertoken,
+                    postId
+                }
+            })
+            return res.status(200).json({ message: "Bookmark saved" })
+        }
+    } catch (e) {
+        return res.status(500).json({ message: "error found" })
     }
 })
 export default router;
