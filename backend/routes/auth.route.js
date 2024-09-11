@@ -53,7 +53,8 @@ router.post("/login", async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true,
             // secure: true
-            maxAge: cookieage
+            maxAge: cookieage,
+            sameSite: 'none'
         }).status(200).json(Userinfo)
     } catch (e) {
         res.status(500).json({ message: "Failed to Login" })
