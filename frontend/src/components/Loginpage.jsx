@@ -13,12 +13,6 @@ export const Loginpage = () => {
         username: '',
         password: ''
     })
-    useEffect(()=>{
-        if(currentUser){
-            navigate('/profile')
-        }
-    },[currentUser])
-
     function handleChange(e) {
         const { name, value } = e.target
         setFormData({
@@ -28,7 +22,7 @@ export const Loginpage = () => {
     }
     async function handleSubmit() {
         try{
-        const response = await axios.post("http://localhost:3000/api/v1/auth/login", formData, {withCredentials: true})
+        const response = await axios.post("https://ocaz.onrender.com/api/v1/auth/login", formData, {withCredentials: true})
        
         updateUser(response.data)
         navigate('/listpage')

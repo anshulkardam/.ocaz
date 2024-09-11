@@ -9,28 +9,28 @@ export function ChatModal({ userID }) {
     const [Id,setID] = useState("")
     const [msg,setmsg] = useState("")
     const navigate = useNavigate()
-    console.log("milgya", userID)
+    
     const handleClick = async () => {
         console.log(" hi from handleclick")
         setOpenModal(true);
         Checkx()
     };
     async function Checkx() {
-        console.log("hi from checkx")
-        const res = await axios.post("http://localhost:3000/api/v1/chat/addchat", { receiverId: userID }, { withCredentials: true })
-        console.log("checkdata:",res.data)
+       
+        const res = await axios.post("https://ocaz.onrender.com/api/v1/chat/addchat", { receiverId: userID }, { withCredentials: true })
+       
         setID(res.data.id)
     }
     async function chatmsg(message) {
-        console.log("hi from chatmsg",msg)
-        await axios.post(`http://localhost:3000/api/v1/message/newmsg/${Id}`,{text: message }, {withCredentials:true})
+       
+        await axios.post(`https://ocaz.onrender.com/api/v1/message/newmsg/${Id}`,{text: message }, {withCredentials:true})
         navigate('/profile')
     }
      
     async function handleSEND() {
-        console.log(" hi from handleSEND")
+       
         const message = inputRef.current.value;
-        console.log("Message to send:", message);
+        
         chatmsg(message);
     }
     

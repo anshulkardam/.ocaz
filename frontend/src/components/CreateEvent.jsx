@@ -13,7 +13,7 @@ export const CreateEvent = () => {
         const inputs = Object.fromEntries(Formdata)
         console.log(inputs)
         try {
-            const response = await axios.post(`http://localhost:3000/api/v1/post/createEvent`, {
+            const response = await axios.post(`https://ocaz.onrender.com/api/v1/post/createEvent`, {
                 postData: {
                     title: inputs.title,
                     type: inputs.type,

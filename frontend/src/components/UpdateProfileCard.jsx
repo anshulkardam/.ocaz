@@ -20,7 +20,7 @@ export const UpdateProfileCard = () => {
         console.log(password)
         try {
             const response = await axios.put(
-                `http://localhost:3000/api/v1/user/update/${currentUser.id}`,
+                `https://ocaz.onrender.com/api/v1/user/update/${currentUser.id}`,
                 {username,firstName,lastName,password,avatar:avatar[0]}, {withCredentials: true}
             );
             updateUser(response.data);

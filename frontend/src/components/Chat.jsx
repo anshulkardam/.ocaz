@@ -14,7 +14,7 @@ export const Chat = ({ chats }) => {
 
     const windowclick = async (id, receiver) => {
         try {
-            const res = await axios.get(`http://localhost:3000/api/v1/chat/${id}`, { withCredentials: true })
+            const res = await axios.get(`https://ocaz.onrender.com/api/v1/chat/${id}`, { withCredentials: true })
             if (!res.data.seenBy.includes(currentUser.id)) {
                 decrease();
             }
@@ -30,7 +30,7 @@ export const Chat = ({ chats }) => {
         const text = formdata.get("text")
         if (!text) return;
         try {
-            const res = await axios.post(`http://localhost:3000/api/v1/message/newmsg/${chatwindow.id}`, { text }, { withCredentials: true })
+            const res = await axios.post(`https://ocaz.onrender.com/api/v1/message/newmsg/${chatwindow.id}`, { text }, { withCredentials: true })
             Setchatwindow((prev) => ({ ...prev, Message: [...prev.Message, res.data] }))
             e.target.reset()
             socket.emit("sendMessage", {
@@ -45,7 +45,7 @@ export const Chat = ({ chats }) => {
     useEffect(() => {
         const read = async () => {
             try {
-                await axios.put(`http://localhost:3000/api/v1/chat/readChat/${chatwindow.id}`,{}, { withCredentials: true })
+                await axios.put(`https://ocaz.onrender.com/api/v1/chat/readChat/${chatwindow.id}`,{}, { withCredentials: true })
             } catch (e) {
                 console.log(e)
             }

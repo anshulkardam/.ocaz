@@ -4,7 +4,7 @@ import { create } from 'zustand'
 export const useNotifStore = create((set) => ({
     number: 0,
     fetch: async () => {
-        const res = await axios.get("http://localhost:3000/api/v1/user/notification",  { withCredentials: true })
+        const res = await axios.get("https://ocaz.onrender.com/api/v1/user/notification",  { withCredentials: true })
         set({ number: res.data })
     },
     decrease: () => {

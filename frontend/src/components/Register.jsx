@@ -9,12 +9,7 @@ export const Register = () => {
     const [error, setError] = useState("")
     const { currentUser } = useContext(Authcontext)
 
-    useEffect(() => {
-        if (currentUser) {
-            navigate('/profile')
-        }
-    }, [currentUser])
-    // Create a single state object for all form fields
+   
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -32,7 +27,7 @@ export const Register = () => {
     };
     const handleSubmit = async () => {
         try {
-            const response = await axios.post("http://localhost:3000/api/v1/auth/register", formData, { withCredentials: true })
+            const response = await axios.post("https://ocaz.onrender.com/api/v1/auth/register", formData, { withCredentials: true })
             navigate('/login')
         } catch (e) {
             setError(e.response.data.message)

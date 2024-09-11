@@ -52,7 +52,7 @@ router.post("/login", async (req, res) => {
 
         res.cookie("token", token, {
             httpOnly: true,
-            // secure: true
+            secure: true,
             maxAge: cookieage,
             sameSite: 'none'
         }).status(200).json(Userinfo)
