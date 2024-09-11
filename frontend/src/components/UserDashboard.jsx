@@ -8,14 +8,13 @@ import { Cards } from "./Cards"
 
 export const UserDashboard = () => {
     const { currentUser, updateUser } = useContext(Authcontext)
-
     const navigate = useNavigate()
-
     useEffect(() => {
         if (!currentUser) {
             navigate('/login')
         }
     }, [currentUser, navigate])
+    
     async function handlelogout() {
         try {
             const res = await axios.post("http://localhost:3000/api/v1/auth/logout", {}, { withCredentials: true })
