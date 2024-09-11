@@ -17,7 +17,7 @@ export const UserDashboard = () => {
     
     async function handlelogout() {
         try {
-            const res = await axios.post("http://localhost:3000/api/v1/auth/logout", {}, { withCredentials: true })
+            const res = await axios.post("https://ocaz.onrender.com/api/v1/auth/logout", {}, { withCredentials: true })
             updateUser(null)
             navigate('/')
         } catch (e) {
