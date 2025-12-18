@@ -1,0 +1,15 @@
+services:
+  postgres:
+    container_name: ocaz
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: dev
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_ocaz:/var/lib/postgresql/data
+
+volumes:
+  db_ocaz:
