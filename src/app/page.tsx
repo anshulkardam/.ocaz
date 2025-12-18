@@ -7,7 +7,7 @@ export default async function Home() {
 
   return (
     <HydrateClient>
-      <div>This rendered on server</div>
+      <div className="text-2xl">This rendered on server</div>
       <Suspense fallback="Loading....">
         <ClientGreetings />
       </Suspense>
