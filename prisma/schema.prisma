@@ -21,8 +21,10 @@ model User {
   Admin   Admin?
   Manager Manager?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bookings  Booking[]
+  tickets   Ticket[]
 }
 
 model Admin {
@@ -41,4 +43,170 @@ model Manager {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  cinema    Cinema?  @relation(fields: [cinemaId], references: [id])
+  cinemaId  String
+}
+
+model Cinema {
+  id String @id @default(cuid())
+
+  name    String
+  Screens Screen[]
+  Address Address?
+
+  Managers Manager[]
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Address {
+  id String @id @default(cuid())
+
+  cinemaId String @unique
+  Cinema   Cinema @relation(fields: [cinemaId], references: [id])
+  address  String
+  lat      Float
+  lng      Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Screen {
+  id String @id @default(cuid())
+
+  number          Int
+  cinemaId        String
+  Cinema          Cinema          @relation(fields: [cinemaId], references: [id])
+  Seats           Seat[]
+  Showtimes       Showtime[]
+  projectionType  ProjectionType  @default(STANDARD)
+  soundSystemType SoundSystemType @default(DOLBY_ATMOS)
+  price           Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([cinemaId, number])
+}
+
+enum ProjectionType {
+  STANDARD
+  IMAX
+  RPX
+  PLF
+  SCREENX
+  DOLBY_CINEMA
+}
+
+enum SoundSystemType {
+  DOLBY_ATMOS
+  IMAX
+  DOLBY_DIGITAL
+  DTS
+  AURO_3D
+}
+
+model Seat {
+  row      Int
+  column   Int
+  screenId String
+  type     SeatType @default(REGULAR)
+
+  screen   Screen    @relation(fields: [screenId], references: [id])
+  Tickets  Ticket[]
+
+  @@id([screenId, row, column])
+}
+
+model Movie {
+  id String @id @default(cuid())
+
+  title       String
+  director    String
+  genre       Genre
+  duration    Int
+  releaseDate DateTime
+  posterUrl   String?
+  Showtimes   Showtime[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum Genre {
+  ACTION
+  ROMANCE
+  HORROR
+  THRILLER
+  DRAMA
+  SPORTS
+}
+
+model Showtime {
+  id String @id @default(cuid())
+
+  startTime DateTime
+  movieId   String
+  Movie     Movie          @relation(fields: [movieId], references: [id])
+  screenId  String
+  Screen    Screen         @relation(fields: [screenId], references: [id])
+  Bookings  Booking[]
+  status    ShowtimeStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([startTime, screenId])
+}
+
+enum ShowtimeStatus {
+  ACTIVE
+  POSTPONED
+  CANCELLED
+}
+
+enum SeatType {
+  REGULAR
+  PREMIUM
+  RECLINER
+}
+
+model Booking {
+  id         String        @id @default(cuid())
+  userId     String
+  showtimeId String
+  totalPrice Float
+  status     BookingStatus @default(CONFIRMED)
+
+  User     User     @relation(fields: [userId], references: [id])
+  Showtime Showtime @relation(fields: [showtimeId], references: [id])
+  Tickets  Ticket[]
+
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+}
+
+enum BookingStatus {
+  CONFIRMED
+  CANCELLED
+  REFUNDED
+}
+
+model Ticket {
+  id        String  @id @default(cuid())
+  bookingId String
+  userId    String
+  screenId  String
+  row       Int
+  column    Int
+  qrCode    String?
+
+  Booking Booking @relation(fields: [bookingId], references: [id])
+  User    User    @relation(fields: [userId], references: [id])
+  Seat    Seat    @relation(fields: [screenId, row, column], references: [screenId, row, column])
+
+  @@unique([screenId, row, column, bookingId])
 }
