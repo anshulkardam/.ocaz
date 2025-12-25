@@ -1,11 +1,12 @@
 import prisma from "@/lib/prisma";
+import { Role } from "@/utils/types";
 import { auth } from "@clerk/nextjs/server";
 import { initTRPC, TRPCError } from "@trpc/server";
 import { headers } from "next/headers";
-import { cache } from "react";
 import superjson from "superjson";
+import { authorizeUser } from "./utils";
 
-export const createTRPCContext = cache(async () => {
+export const createTRPCContext = async () => {
   let session = null;
 
   try {
@@ -20,25 +21,35 @@ export const createTRPCContext = cache(async () => {
     session,
     db: prisma,
   };
-});
+};
 
-const t = initTRPC.context<typeof createTRPCContext>().create({ transformer: superjson });
+type Context = Awaited<ReturnType<typeof createTRPCContext>>;
+
+const t = initTRPC.context<Context>().create({
+  transformer: superjson,
+});
 
 export const createTRPCRouter = t.router;
 export const createCallerFactory = t.createCallerFactory;
 export const publicProcedure = t.procedure;
 
-export const protectedProcedure = t.procedure.use(
-  t.middleware(({ ctx, next }) => {
-    if (!ctx.session?.userId) {
-      throw new TRPCError({ code: "UNAUTHORIZED" });
-    }
+export const protectedProcedure = (...roles: Role[]) =>
+  t.procedure.use(
+    t.middleware(async ({ ctx, next }) => {
+      if (!ctx.session?.userId) {
+        throw new TRPCError({ code: "UNAUTHORIZED", message: "You are not authorized" });
+      }
 
-    return next({
-      ctx: {
-        ...ctx,
-        userId: ctx.session.userId,
-      },
-    });
-  })
-);
+      // Only enforce role check if roles were passed
+      if (roles.length > 0) {
+        await authorizeUser(ctx.session.userId, roles);
+      }
+
+      return next({
+        ctx: {
+          ...ctx,
+          userId: ctx.session.userId,
+        },
+      });
+    })
+  );

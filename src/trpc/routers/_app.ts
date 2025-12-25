@@ -1,18 +1,18 @@
-import { z } from "zod";
 import { publicProcedure, createTRPCRouter } from "../init";
+import { adminRouter } from "./admin";
+import { moviesRouter } from "./movies";
+import { userRouter } from "./users";
 
 export const appRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(
-      z.object({
-        text: z.string(),
-      })
-    )
-    .query(async (opts) => {
-      return {
-        greeting: `hello ${opts.input.text}`,
-      };
-    }),
+  health: publicProcedure.query(async (opts) => {
+    return {
+      status: "ok",
+      timestamp: Date.now(),
+    };
+  }),
+  movies: moviesRouter,
+  admin: adminRouter,
+  user: userRouter,
 });
 
 // export type definition of API
