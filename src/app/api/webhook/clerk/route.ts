@@ -17,6 +17,7 @@ export async function POST(req: NextRequest) {
         data: {
           id: evt.data.id,
           image: evt.data.image_url,
+          email: evt.data.email_addresses[0].email_address,
           name: [evt.data.first_name, evt.data.last_name].filter(Boolean).join(" "),
         },
       });
@@ -31,6 +32,7 @@ export async function POST(req: NextRequest) {
         create: {
           id: evt.data.id,
           name: [evt.data.first_name, evt.data.last_name].filter(Boolean).join(" "),
+          email: evt.data.email_addresses[0].email_address,
           image: evt.data.image_url,
         },
       });
