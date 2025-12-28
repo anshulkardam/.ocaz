@@ -1,6 +1,9 @@
 import { publicProcedure, createTRPCRouter } from "../init";
 import { adminRouter } from "./admin";
+import { cinemaRouter } from "./cinemas";
+import { managerRouter } from "./manager";
 import { moviesRouter } from "./movies";
+import { showtimeRouter } from "./showtimes";
 import { userRouter } from "./users";
 
 export const appRouter = createTRPCRouter({
@@ -10,9 +13,12 @@ export const appRouter = createTRPCRouter({
       timestamp: Date.now(),
     };
   }),
-  movies: moviesRouter,
   admin: adminRouter,
   user: userRouter,
+  movies: moviesRouter,
+  cinemas: cinemaRouter,
+  manager: managerRouter,
+  showtimes: showtimeRouter,
 });
 
 // export type definition of API

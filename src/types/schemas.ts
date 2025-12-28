@@ -10,9 +10,13 @@ export const createMovieSchema = z.object({
   posterUrl: z.url().optional(),
 });
 
+export const updateMovieSchema = createMovieSchema.extend({
+  id: z.string("Movie ID is required").min(1),
+});
+
 export const createScreenSchema = z.object({
   projectionType: z.enum(ProjectionType),
-  SoundSystemType: z.enum(SoundSystemType),
+  soundSystemType: z.enum(SoundSystemType),
   rows: z.number(),
   columns: z.number(),
   price: z.number(),
@@ -30,3 +34,18 @@ export const createCinemaSchema = z.object({
   address: createAddressSchema,
   screens: z.array(createScreenSchema),
 });
+
+export const createShowtimeSchema = z.object({
+  movieId: z.string().min(1, "Movie is required"),
+  screenId: z.string().min(1, "Screen is required"),
+  startTime: z.date({ error: "Start time is required" }),
+});
+
+export const updateShowtimeSchema = z.object({
+  id: z.string(),
+  startTime: z.date().optional(),
+  status: z.enum(["ACTIVE", "POSTPONED", "CANCELLED"]).optional(),
+});
+
+export type CreateShowtimeInput = z.infer<typeof createShowtimeSchema>;
+export type UpdateShowtimeInput = z.infer<typeof updateShowtimeSchema>;
